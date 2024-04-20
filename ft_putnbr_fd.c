@@ -6,7 +6,7 @@
 /*   By: yotsubo <y.otsubo.886@ms.saitama-u.ac.j    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 05:42:07 by yuotsubo          #+#    #+#             */
-/*   Updated: 2024/04/20 12:36:34 by yotsubo          ###   ########.fr       */
+/*   Updated: 2024/04/20 16:18:38 by yotsubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,22 @@ void	ft_putnbr_fd(int n, int fd)
 		write(fd, "-", sizeof(char));
 		lln *= -1;
 	}
+	digit = count_digit(lln);
+	while (digit--)
+	{
+		out_c = lln / ft_power(10, digit) + '0';
+		write(fd, &out_c, sizeof(char));
+		lln %= ft_power(10, digit);
+	}
+}
+
+void	ft_putuint_fd(unsigned int un, int fd)
+{
+	long long	lln;
+	int			digit;
+	char		out_c;
+
+	lln = (long long)un;
 	digit = count_digit(lln);
 	while (digit--)
 	{

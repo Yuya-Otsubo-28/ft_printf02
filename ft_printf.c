@@ -8,7 +8,7 @@ static int	reading_args(const char flag, va_list ap)
 	if (flag == 'd' || flag == 'i')
 		len = __printf_putint(va_arg(ap, int));
 	else if (flag == 'u')
-		len = __printf_putuint();
+		len = __printf_putuint(va_arg(ap, unsigned int));
 	else if (flag == 'x')
 		len = __printf_puthex();
 	else if (flag == 'X')

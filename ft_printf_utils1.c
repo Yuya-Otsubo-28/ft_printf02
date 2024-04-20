@@ -4,6 +4,7 @@
 #include <limits.h>
 
 void	ft_putnbr_fd(int n, int fd);
+void	ft_putuint_fd(unsigned int un, int fd);
 
 int	__printf_putint(int n)
 {
@@ -27,10 +28,29 @@ int	__printf_putint(int n)
 	return (len);
 }
 
+int	__printf_putuint(unsigned int un)
+{
+	int	len;
+
+	ft_putuint_fd(un, STDOUT_FILENO);
+	if (!un)
+		len = 1;
+	else
+		len = 0;
+	while (un)
+	{
+		un = un / 10;
+		len++;
+	}
+	return (len);
+}
+
 // int	main(void)
 // {
 // 	int	n = INT_MIN;
+// 	unsigned int un = 0;
 
 // 	printf("len: %d\n", __printf_putint(n));
+// 	printf("len: %d\n", __printf_putuint(un));
 // 	return (0);
 // }

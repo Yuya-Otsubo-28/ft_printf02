@@ -45,6 +45,23 @@ int	__printf_putuint(unsigned int un)
 	return (len);
 }
 
+int	__printf_putchar(char c)
+{
+	ft_putchar_fd(c, STDOUT_FILENO);
+	return (1);
+}
+
+int	__printf_putstr(char *s)
+{
+	size_t	len;
+
+	if (!s)
+		return (-1);
+	len = ft_strlen(s);
+	ft_putstr_fd(s, STDOUT_FILENO);
+	return ((int)len);
+}
+
 // int	main(void)
 // {
 // 	int	n = INT_MIN;

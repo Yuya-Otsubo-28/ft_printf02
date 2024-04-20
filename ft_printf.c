@@ -16,11 +16,11 @@ static int	reading_args(const char flag, va_list ap)
 	else if (flag == 'p')
 		len = __printf_putadrs();
 	else if (flag == 's')
-		len = __printf_putstr();
+		len = __printf_putstr(va_arg(ap, char *));
 	else if (flag == 'c')
-		len = __printf_putchar();
+		len = __printf_putchar(va_arg(ap, char));
 	else if (flag == '%')
-		len = __printf_putper();
+		len = __printf_putchar('%');
 	else
 		len = -1;
 	return (len);

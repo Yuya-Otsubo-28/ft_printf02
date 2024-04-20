@@ -1,5 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yuotsubo <yuotsubo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/20 19:58:09 by yuotsubo          #+#    #+#             */
+/*   Updated: 2024/04/20 19:58:09 by yuotsubo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <stdarg.h>
+#include <unistd.h>
+
+#define UP 0
+#define LOW 1
 
 static int	reading_args(const char flag, va_list ap)
 {
@@ -10,11 +26,11 @@ static int	reading_args(const char flag, va_list ap)
 	else if (flag == 'u')
 		len = __printf_putuint(va_arg(ap, unsigned int));
 	else if (flag == 'x')
-		len = __printf_puthex();
+		len = __printf_puthex(va_arg(ap, unsigned int), UP);
 	else if (flag == 'X')
-		len = __printf_puthex();
+		len = __printf_puthex(va_arg(ap, unsigned int), LOW);
 	else if (flag == 'p')
-		len = __printf_putadrs();
+		len = __printf_putadrs(va_arg(ap, unsigned long));
 	else if (flag == 's')
 		len = __printf_putstr(va_arg(ap, char *));
 	else if (flag == 'c')

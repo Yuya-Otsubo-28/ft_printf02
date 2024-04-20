@@ -1,10 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_utils1.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yuotsubo <yuotsubo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/20 19:58:12 by yuotsubo          #+#    #+#             */
+/*   Updated: 2024/04/20 19:58:12 by yuotsubo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdarg.h>
 #include <limits.h>
 
+#define UP 0
+#define DOWN 1
+
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putuint_fd(unsigned int un, int fd);
+char	*ft_deci_to_hex(unsigned int un);
+int		ft_toupper(int c);
 
 int	__printf_putint(int n)
 {
@@ -45,9 +62,12 @@ int	__printf_putuint(unsigned int un)
 	return (len);
 }
 
-int	__printf_putchar(char c)
+int	__printf_putchar(int n)
 {
-	ft_putchar_fd(c, STDOUT_FILENO);
+	unsigned char	uc;
+
+	uc = (unsigned char)n;
+	write(STDOUT_FILENO, &uc, sizeof(char));
 	return (1);
 }
 
@@ -60,6 +80,27 @@ int	__printf_putstr(char *s)
 	len = ft_strlen(s);
 	ft_putstr_fd(s, STDOUT_FILENO);
 	return ((int)len);
+}
+
+int	__printf_puthex(unsigned int un, int flag)
+{
+	char	*arg;
+	int		len;
+	size_t	i;
+
+	arg = __deci_to_hex(un, flag);
+	if (!arg)
+		return (-1);
+	len = ft_strlen(arg);
+	if (flag == UP)
+	{
+		i = 0;
+		while (arg[i])
+			ft_toupper(arg[i++]);
+	}
+	ft_putstr_fd(arg, STDOUT_FILENO);
+	free(arg);
+	return (len);
 }
 
 // int	main(void)

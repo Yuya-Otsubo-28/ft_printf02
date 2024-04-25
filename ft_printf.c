@@ -22,11 +22,11 @@ static int	reading_args(const char flag, va_list ap)
 	else if (flag == 'u')
 		len = __printf_putuint(va_arg(ap, unsigned int));
 	else if (flag == 'x')
-		len = __printf_puthex((ull)va_arg(ap, unsigned int), LOW);
+		len = __printf_puthex((t_ull)va_arg(ap, unsigned int), LOW);
 	else if (flag == 'X')
-		len = __printf_puthex((ull)va_arg(ap, unsigned int), UP);
+		len = __printf_puthex((t_ull)va_arg(ap, unsigned int), UP);
 	else if (flag == 'p')
-		len = __printf_puthex((ull)va_arg(ap, void *), ADR);
+		len = __printf_puthex((t_ull)va_arg(ap, void *), ADR);
 	else if (flag == 's')
 		len = __printf_putstr(va_arg(ap, char *));
 	else if (flag == 'c')

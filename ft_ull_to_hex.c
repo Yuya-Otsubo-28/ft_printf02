@@ -13,7 +13,7 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-static size_t	count_digits(ull ulln)
+static size_t	count_digits(t_ull ulln)
 {
 	size_t	digits;
 
@@ -28,9 +28,9 @@ static size_t	count_digits(ull ulln)
 	return (digits);
 }
 
-static ull	ft_power(int n, int power)
+static t_ull	ft_power(int n, int power)
 {
-	ull	res;
+	t_ull	res;
 
 	res = 1;
 	while (power--)
@@ -38,7 +38,19 @@ static ull	ft_power(int n, int power)
 	return (res);
 }
 
-char	*ft_ull_to_hex(ull ulln, int flag)
+static int	flag_check(int flag, char *res)
+{
+	if (flag == ADR)
+	{
+		res[0] = '0';
+		res[1] = 'x';
+		return (2);
+	}
+	else
+		return (0);
+}
+
+char	*ft_ull_to_hex(t_ull ulln, int flag)
 {
 	size_t	len;
 	size_t	i;
@@ -49,12 +61,7 @@ char	*ft_ull_to_hex(ull ulln, int flag)
 	res = (char *)malloc(sizeof(char) * (len + 3));
 	if (!res)
 		return (NULL);
-	i = 0;
-	if (flag == ADR)
-	{
-		res[i++] = '0';
-		res[i++] = 'x';
-	}
+	i = flag_check(flag, res);
 	while (len--)
 	{
 		tmp = ulln / ft_power(16, len);

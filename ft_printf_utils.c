@@ -75,7 +75,7 @@ int	__printf_putstr(char *s)
 	return ((int)len);
 }
 
-int	__printf_puthex(ull ulln, int flag)
+int	__printf_puthex(t_ull ulln, int flag)
 {
 	char	*arg;
 	int		len;

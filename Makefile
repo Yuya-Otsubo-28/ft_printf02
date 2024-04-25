@@ -6,28 +6,24 @@ SRCS = ft_printf.c \
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror
 INCLUDES = -I./ -I./libft/
-LIBFT_PATH = ./libft
-LIBFT = libft.a
 
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT)
-	cp $(LIBFT_PATH)/$(LIBFT) .
-	mv $(LIBFT) $(NAME)
-	ar rcs $(NAME) $(OBJS)
+$(NAME): $(OBJS)
+	make -C ./libft
+	cp ./libft/libft.a .
+	mv libft.a $(NAME)
+	$(AR) rcs $(NAME) $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
 
-$(LIBFT):
-	make -C $(LIBFT_PATH)
-
 clean:
-	make clean -C $(LIBFT_PATH)
+	make clean -C ./libft
 	$(RM) $(OBJS)
 
 fclean: clean
-	make fclean -C $(LIBFT_PATH)
+	make fclean -C ./libft
 	$(RM) $(NAME)
 
 re: fclean all

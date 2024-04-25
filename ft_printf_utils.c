@@ -81,7 +81,7 @@ int	__printf_puthex(ull ulln, int flag)
 	int		len;
 	size_t	i;
 
-	arg = ft_ull_to_hex(ulln);
+	arg = ft_ull_to_hex(ulln, flag);
 	if (!arg)
 		return (-1);
 	len = ft_strlen(arg);

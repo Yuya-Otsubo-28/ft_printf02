@@ -45,8 +45,6 @@ int	ft_printf(const char *format, ...)
 	int		res;
 	int		args_len;
 
-	if (!format)
-		return (-1);
 	va_start(ap, format);
 	i = -1;
 	res = 0;

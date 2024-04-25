@@ -8,7 +8,7 @@ static size_t	count_digits(ull ulln)
 	size_t	digits;
 
 	if (!ulln)
-		return (0);
+		return (1);
 	digits = 0;
 	while (ulln)
 	{
@@ -36,10 +36,12 @@ char	*ft_ull_to_hex(ull ulln)
 	int		tmp;
 
 	len = count_digits(ulln);
-	res = (char *)malloc(sizeof(char) * (len + 1));
+	res = (char *)malloc(sizeof(char) * (len + 3));
 	if (!res)
 		return (NULL);
 	i = 0;
+	res[i++] = '0';
+	res[i++] = 'x';
 	while (len--)
 	{
 		tmp = ulln / ft_power(16, len);
@@ -57,7 +59,7 @@ char	*ft_ull_to_hex(ull ulln)
 // {
 // 	char	*res;
 
-// 	res = ft_ull_to_hex(10000000);
+// 	res = ft_ull_to_hex(0);
 // 	printf("%s\n", res);
 // 	free(res);
 // 	return (0);

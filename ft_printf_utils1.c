@@ -15,12 +15,14 @@
 #include <stdarg.h>
 #include <limits.h>
 
+typedef unsigned long long	ull;
+
 #define UP 0
-#define DOWN 1
+#define LOW 1
 
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putuint_fd(unsigned int un, int fd);
-char	*ft_deci_to_hex(unsigned int un);
+char	*ft_ull_to_hex(ull un);
 int		ft_toupper(int c);
 
 int	__printf_putint(int n)
@@ -88,7 +90,7 @@ int	__printf_puthex(unsigned int un, int flag)
 	int		len;
 	size_t	i;
 
-	arg = __deci_to_hex(un, flag);
+	arg = ft_ull_to_hex((ull)un, flag);
 	if (!arg)
 		return (-1);
 	len = ft_strlen(arg);
@@ -110,5 +112,6 @@ int	__printf_puthex(unsigned int un, int flag)
 
 // 	printf("len: %d\n", __printf_putint(n));
 // 	printf("len: %d\n", __printf_putuint(un));
+// 	printf("len; %d\n", __printf_puthex(1000000, LOW));
 // 	return (0);
 // }

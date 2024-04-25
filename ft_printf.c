@@ -17,6 +17,8 @@
 #define UP 0
 #define LOW 1
 
+typedef unsigned long long ull;
+
 static int	reading_args(const char flag, va_list ap)
 {
 	int	len;
@@ -30,7 +32,7 @@ static int	reading_args(const char flag, va_list ap)
 	else if (flag == 'X')
 		len = __printf_puthex(va_arg(ap, unsigned int), LOW);
 	else if (flag == 'p')
-		len = __printf_putadrs(va_arg(ap, unsigned long));
+		len = __printf_puthex(va_arg(ap, ull), LOW);
 	else if (flag == 's')
 		len = __printf_putstr(va_arg(ap, char *));
 	else if (flag == 'c')
@@ -72,9 +74,9 @@ int	ft_printf(const char *format, ...)
 	return (i);
 }
 
-int	main(void)
-{
-	char	c = '\0';
-	printf("res: %d\n", printf("123%c213", c));
-	return (0);
-}
+// int	main(void)
+// {
+// 	char	c = '\0';
+// 	printf("res: %d\n", printf("123%c213", c));
+// 	return (0);
+// }

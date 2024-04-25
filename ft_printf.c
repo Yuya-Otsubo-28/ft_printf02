@@ -10,14 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <stdarg.h>
-#include <unistd.h>
-
-#define UP 0
-#define LOW 1
-
-typedef unsigned long long ull;
+#include "libft.h"
+#include "ft_printf.h"
 
 static int	reading_args(const char flag, va_list ap)
 {
@@ -28,15 +22,15 @@ static int	reading_args(const char flag, va_list ap)
 	else if (flag == 'u')
 		len = __printf_putuint(va_arg(ap, unsigned int));
 	else if (flag == 'x')
-		len = __printf_puthex(va_arg(ap, unsigned int), UP);
+		len = __printf_puthex((ull)va_arg(ap, unsigned int), LOW);
 	else if (flag == 'X')
-		len = __printf_puthex(va_arg(ap, unsigned int), LOW);
+		len = __printf_puthex((ull)va_arg(ap, unsigned int), UP);
 	else if (flag == 'p')
-		len = __printf_puthex(va_arg(ap, ull), LOW);
+		len = __printf_puthex((ull)va_arg(ap, void *), ADR);
 	else if (flag == 's')
 		len = __printf_putstr(va_arg(ap, char *));
 	else if (flag == 'c')
-		len = __printf_putchar(va_arg(ap, char));
+		len = __printf_putchar(va_arg(ap, int));
 	else if (flag == '%')
 		len = __printf_putchar('%');
 	else
@@ -47,31 +41,31 @@ static int	reading_args(const char flag, va_list ap)
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
-	size_t	i;
+	int		i;
 	int		res;
 	int		args_len;
 
 	if (!format)
 		return (-1);
 	va_start(ap, format);
-	i = 0;
+	i = -1;
 	res = 0;
-	while (format[i])
+	while (format[++i])
 	{
-		if (format[i++] == '%')
+		if (format[i] == '%')
 		{
-			args_len = reading_args(format[i++], ap);
+			args_len = reading_args(format[++i], ap);
 			if (args_len < 0)
 				return (res);
 			res += args_len;
 		}
 		else
 		{
-			write(STDOUT_FILENO, &format[i++], sizeof(char));
+			write(STDOUT_FILENO, &format[i], sizeof(char));
 			res++;
 		}
 	}
-	return (i);
+	return (res);
 }
 
 // int	main(void)

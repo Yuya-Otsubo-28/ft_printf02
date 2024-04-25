@@ -1,7 +1,17 @@
-#include <stdlib.h>
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ull_to_hex.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yuotsubo <yuotsubo@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/25 09:24:09 by yuotsubo          #+#    #+#             */
+/*   Updated: 2024/04/25 09:24:09 by yuotsubo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef unsigned long long ull;
+#include "ft_printf.h"
+#include "libft.h"
 
 static size_t	count_digits(ull ulln)
 {
@@ -28,7 +38,7 @@ static ull	ft_power(int n, int power)
 	return (res);
 }
 
-char	*ft_ull_to_hex(ull ulln)
+char	*ft_ull_to_hex(ull ulln, int flag)
 {
 	size_t	len;
 	size_t	i;
@@ -40,8 +50,11 @@ char	*ft_ull_to_hex(ull ulln)
 	if (!res)
 		return (NULL);
 	i = 0;
-	res[i++] = '0';
-	res[i++] = 'x';
+	if (flag == ADR)
+	{
+		res[i++] = '0';
+		res[i++] = 'x';
+	}
 	while (len--)
 	{
 		tmp = ulln / ft_power(16, len);

@@ -1,29 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_utils1.c                                 :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yuotsubo <yuotsubo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 19:58:12 by yuotsubo          #+#    #+#             */
-/*   Updated: 2024/04/20 19:58:12 by yuotsubo         ###   ########.fr       */
+/*   Created: 2024/04/25 09:21:30 by yuotsubo          #+#    #+#             */
+/*   Updated: 2024/04/25 09:21:30 by yuotsubo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include <stdarg.h>
-#include <limits.h>
-
-typedef unsigned long long	ull;
-
-#define UP 0
-#define LOW 1
-
-void	ft_putnbr_fd(int n, int fd);
-void	ft_putuint_fd(unsigned int un, int fd);
-char	*ft_ull_to_hex(ull un);
-int		ft_toupper(int c);
+#include "ft_printf.h"
+#include "libft.h"
 
 int	__printf_putint(int n)
 {
@@ -78,19 +66,22 @@ int	__printf_putstr(char *s)
 	size_t	len;
 
 	if (!s)
-		return (-1);
+	{
+		ft_putstr_fd("(null)", STDOUT_FILENO);
+		return (ft_strlen("(null)"));
+	}
 	len = ft_strlen(s);
 	ft_putstr_fd(s, STDOUT_FILENO);
 	return ((int)len);
 }
 
-int	__printf_puthex(unsigned int un, int flag)
+int	__printf_puthex(ull ulln, int flag)
 {
 	char	*arg;
 	int		len;
 	size_t	i;
 
-	arg = ft_ull_to_hex((ull)un, flag);
+	arg = ft_ull_to_hex(ulln);
 	if (!arg)
 		return (-1);
 	len = ft_strlen(arg);
@@ -98,7 +89,10 @@ int	__printf_puthex(unsigned int un, int flag)
 	{
 		i = 0;
 		while (arg[i])
-			ft_toupper(arg[i++]);
+		{
+			arg[i] = ft_toupper(arg[i]);
+			i++;
+		}
 	}
 	ft_putstr_fd(arg, STDOUT_FILENO);
 	free(arg);
